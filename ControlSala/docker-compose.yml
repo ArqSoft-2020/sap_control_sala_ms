@@ -1,0 +1,27 @@
+version: '2'
+
+# Define services
+services:
+
+  # App Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    links:
+      - db
+
+  # MySQL Service
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: gotest
+      MYSQL_PASSWORD: gotest
+      MYSQL_ROOT_PASSWORD: gotest
+      MYSQL_DATABASE: local_gotest
